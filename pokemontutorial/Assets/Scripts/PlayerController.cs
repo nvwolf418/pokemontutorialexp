@@ -7,7 +7,14 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     private bool isMoving;
 
+    private Animator animator;
+
     private Vector2 input;
+
+    public void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     public void Update()
     {
@@ -16,9 +23,18 @@ public class PlayerController : MonoBehaviour
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
+            //prevents diaganol movement
+            if (input.x != 0)
+            {
+                input.y = 0;
+            }
 
             if (input != Vector2.zero)
             {
+                //set values of animator
+                animator.SetFloat("moveX", input.x);
+                animator.SetFloat("moveY", input.y);
+
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
@@ -26,6 +42,8 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(Move(targetPos));
             }
         }
+
+        animator.SetBool("isMoving", isMoving);
     }
 
     IEnumerator Move(Vector3 targetPos)
