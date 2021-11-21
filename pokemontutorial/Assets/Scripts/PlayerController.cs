@@ -15,15 +15,16 @@ public class PlayerController : MonoBehaviour
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
-        }
 
-        if (input != Vector2.zero)
-        {
-            var targetPos = transform.position;
-            targetPos.x += input.x;
-            targetPos.y += input.y;
-            Debug.Log($"input x :y -> {input.x} :  {input.y}");
-            StartCoroutine(Move(targetPos));
+
+            if (input != Vector2.zero)
+            {
+                var targetPos = transform.position;
+                targetPos.x += input.x;
+                targetPos.y += input.y;
+                Debug.Log($"input x :y -> {input.x} :  {input.y}");
+                StartCoroutine(Move(targetPos));
+            }
         }
     }
 
