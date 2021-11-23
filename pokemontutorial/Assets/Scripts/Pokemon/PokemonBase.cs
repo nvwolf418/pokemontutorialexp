@@ -24,6 +24,8 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int spDefense;
     [SerializeField] int speed;
 
+    [SerializeField] List<LearnableMove> learnableMoves;
+
     public string Name 
     { 
         get { return name; }
@@ -84,7 +86,32 @@ public class PokemonBase : ScriptableObject
     {
         get {  return speed; }
     }
+
+    public List<LearnableMove> LearnableMoves
+    {
+        get { return learnableMoves; }
+    }
 }
+
+//need to make this serializable as a class object must have its
+//class set to serializable to be used in a serializable field 
+[System.Serializable]
+public class LearnableMove
+{
+    [SerializeField] MoveBase moveBase;
+    [SerializeField] int level;
+
+    public MoveBase Base
+    {
+        get { return moveBase; }
+    }
+
+    public int Level
+    {
+        get { return level; }
+    }
+}
+
 
 public enum PokemonType
 {
