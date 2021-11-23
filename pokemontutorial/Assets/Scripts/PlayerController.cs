@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 input;
 
+    public LayerMask solidObjectsLayer;
+    public LayerMask grassLayer;
+
     public void Awake()
     {
         animator = GetComponent<Animator>();
@@ -38,8 +41,11 @@ public class PlayerController : MonoBehaviour
                 var targetPos = transform.position;
                 targetPos.x += input.x;
                 targetPos.y += input.y;
-                Debug.Log($"input x :y -> {input.x} :  {input.y}");
-                StartCoroutine(Move(targetPos));
+
+                if (IsWalkable(new Vector3(targetPos.x - 0.35f, targetPos.y - 0.55f)))
+                {
+                    StartCoroutine(Move(targetPos));
+                }
             }
         }
 
@@ -59,5 +65,28 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+
+        CheckForEncounters(targetPos);
     }
+
+
+
+    private bool IsWalkable(Vector3 targetPos)
+    {
+        //checks to see if solidobjects variable, pulled from LayerMask from interface to check if it is part of that layer
+       return Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer) == null ? true : false;
+
+    }
+
+    private void CheckForEncounters(Vector3 targetPos)
+    {
+        if(Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
+        {
+            if(Random.Range(1, 101) <= 90)
+            {
+                Debug.Log("Encountered a wild pokemon");
+            }
+        }
+    }
+
 }
