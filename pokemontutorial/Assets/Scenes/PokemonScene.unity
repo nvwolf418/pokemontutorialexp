@@ -1758,6 +1758,7 @@ MonoBehaviour:
   enemyUnit: {fileID: 1372010903}
   playerHud: {fileID: 1706467235}
   enemyHud: {fileID: 1068704053}
+  dialogBox: {fileID: 2090709858}
 --- !u!1 &1005667310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,7 +1790,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1595041804}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1883,7 +1884,7 @@ RectTransform:
   - {fileID: 630629232}
   - {fileID: 1868210695}
   m_Father: {fileID: 1595041804}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7033,7 +7034,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1595041804}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7124,11 +7125,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 798245613}
-  - {fileID: 2090709855}
   - {fileID: 1005667311}
   - {fileID: 1706467232}
   - {fileID: 1372010902}
   - {fileID: 1068704052}
+  - {fileID: 2090709855}
   m_Father: {fileID: 988295110}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7232,7 +7233,7 @@ RectTransform:
   - {fileID: 442099599}
   - {fileID: 25607026}
   m_Father: {fileID: 1595041804}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7615,6 +7616,7 @@ GameObject:
   - component: {fileID: 2090709855}
   - component: {fileID: 2090709857}
   - component: {fileID: 2090709856}
+  - component: {fileID: 2090709858}
   m_Layer: 0
   m_Name: DialogBox
   m_TagString: Untagged
@@ -7636,7 +7638,7 @@ RectTransform:
   - {fileID: 443106760}
   - {fileID: 865394786}
   m_Father: {fileID: 1595041804}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7681,6 +7683,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090709854}
   m_CullTransparentMesh: 1
+--- !u!114 &2090709858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090709854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13592e3b28479f439e95923d10e0a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lettersPerSecond: 30
+  dialogText: {fileID: 443106761}
 --- !u!1 &2124563102
 GameObject:
   m_ObjectHideFlags: 0
