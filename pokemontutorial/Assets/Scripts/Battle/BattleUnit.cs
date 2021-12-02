@@ -51,4 +51,23 @@ public class BattleUnit : MonoBehaviour
 
         image.transform.DOLocalMoveX(originalPos.x, 2f);
     }
+
+    public void PlayAttackAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        //determines if + or - if player unit because of location on screen, enemy unit is opposite, so we move in opposite directions for attack
+        int transVal = isPlayerUnit ? 1 : -1;
+
+
+            sequence.Append(image.transform.DOLocalMoveY(originalPos.y + (transVal * 20f), 0.35f))
+                    .Join(image.transform.DOLocalMoveX(originalPos.x + (transVal * 50f), 0.35f));
+        
+
+            transVal *= -1;
+
+
+            sequence.Append(image.transform.DOLocalMoveY(originalPos.y, 0.35f))
+                    .Join(image.transform.DOLocalMoveX(originalPos.x, 0.35f));
+
+    }
 }
