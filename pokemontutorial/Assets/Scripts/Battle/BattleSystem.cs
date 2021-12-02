@@ -69,6 +69,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.Pokemon.Base.Name} fainted");
+            enemyUnit.PlayFaintAnimation();
         }
         else
         {
@@ -97,6 +98,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{playerUnit.Pokemon.Base.Name} fainted");
+            playerUnit.PlayFaintAnimation();
         }
         else
         {

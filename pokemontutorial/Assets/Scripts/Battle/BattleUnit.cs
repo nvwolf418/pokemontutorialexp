@@ -82,4 +82,11 @@ public class BattleUnit : MonoBehaviour
         
     }
 
+    public void PlayFaintAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f))
+                .Join(image.DOFade(0f, 0.5f));
+    }
+
 }
