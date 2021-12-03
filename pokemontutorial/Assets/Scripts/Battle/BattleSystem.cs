@@ -26,9 +26,9 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator SetUpBattle()
     {
-        playerUnit.Setup();
+        //playerUnit.Setup();
         playerHud.SetData(playerUnit.Pokemon);
-        enemyUnit.Setup();
+        //enemyUnit.Setup();
         enemyHud.SetData(enemyUnit.Pokemon);
 
         dialogBox.SetMoveNames(playerUnit.Pokemon.Moves);

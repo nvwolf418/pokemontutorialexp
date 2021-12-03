@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 266334824}
   - component: {fileID: 266334826}
   - component: {fileID: 266334827}
+  - component: {fileID: 266334828}
   m_Layer: 0
   m_Name: PlayerUnit
   m_TagString: Untagged
@@ -617,6 +618,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &266334828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266334823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90d44afc7b2714546b6a065f38bfb5e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pokemons:
+  - _base: {fileID: 11400000, guid: dcc71caf11b51394c89facaab8dfaa52, type: 2}
+    level: 10
+  - _base: {fileID: 11400000, guid: e2f768c9292d5a24f9a10b4f6fe223c3, type: 2}
+    level: 10
 --- !u!1 &270967592
 GameObject:
   m_ObjectHideFlags: 0

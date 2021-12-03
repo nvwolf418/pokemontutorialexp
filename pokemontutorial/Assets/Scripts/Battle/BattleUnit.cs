@@ -24,9 +24,9 @@ public class BattleUnit : MonoBehaviour
         originalColor = image.color;
     }
 
-    public void Setup()
+    public void Setup(Pokemon pokemon)
     {
-        Pokemon = new Pokemon(_base, level);
+        Pokemon = pokemon;
         if(isPlayerUnit)
         {
             image.sprite = Pokemon.Base.BackSprite;
