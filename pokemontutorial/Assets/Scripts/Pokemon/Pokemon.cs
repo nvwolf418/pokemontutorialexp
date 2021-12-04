@@ -28,7 +28,7 @@ public class Pokemon
 
     public List<Move> Moves { get; private set; }
 
-    public void Init(PokemonBase pBase,int pLevel)
+    public void Init()
     {
         HP = MaxHP;
 

@@ -44,14 +44,14 @@ public class BattleUnit : MonoBehaviour
     {
         if(isPlayerUnit)
         {
-            image.transform.localPosition = new Vector3(560f, originalPos.y);
+            image.transform.localPosition = new Vector3(-560f, originalPos.y);
         }
         else
         {
-            image.transform.localPosition = new Vector3(-560f, originalPos.y);
+            image.transform.localPosition = new Vector3(560f, originalPos.y);
         }
 
-        image.transform.DOLocalMoveX(originalPos.x, 2f);
+        image.transform.DOLocalMoveX(originalPos.x, 1f);
     }
 
     public void PlayAttackAnimation()
