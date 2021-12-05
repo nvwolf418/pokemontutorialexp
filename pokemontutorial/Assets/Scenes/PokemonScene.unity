@@ -865,6 +865,10 @@ MonoBehaviour:
     level: 10
   - _base: {fileID: 11400000, guid: e2f768c9292d5a24f9a10b4f6fe223c3, type: 2}
     level: 10
+  - _base: {fileID: 11400000, guid: 1a3229f95e29aee40a66a5f09b9718e2, type: 2}
+    level: 10
+  - _base: {fileID: 11400000, guid: e2f768c9292d5a24f9a10b4f6fe223c3, type: 2}
+    level: 55
 --- !u!1 &270967592
 GameObject:
   m_ObjectHideFlags: 0
@@ -8622,7 +8626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 4.23, y: 45.65}
+  m_AnchoredPosition: {x: 4.23, y: 45.649994}
   m_SizeDelta: {x: 684.3, y: 91.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1665571458
