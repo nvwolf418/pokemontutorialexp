@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
         }
         else if(state == GameState.Battle)
         {
-            battleSystem.handleUpdate();
+            battleSystem.HandleUpdate();
         }
     }
 }
