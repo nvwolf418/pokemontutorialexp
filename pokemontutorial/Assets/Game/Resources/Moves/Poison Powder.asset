@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad7c70dc7d37b1449870ad81a9516b4, type: 3}
   m_Name: Poison Powder
   m_EditorClassIdentifier: 
-  name: 
+  name: Poison Powder
   description: 
   type: 8
   power: 0

@@ -128,7 +128,7 @@ public class BattleSystem : MonoBehaviour
 
         if(move.Base.Category == MoveCategory.Status)
         {
-            RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
+            yield return RunMoveEffects(move, sourceUnit.Pokemon, targetUnit.Pokemon);
         }
         else
         {
@@ -147,6 +147,23 @@ public class BattleSystem : MonoBehaviour
 
 
             CheckForBattleOver(targetUnit);
+        }
+
+
+        //statuses like burn or psn will the pokemon after the turn
+        sourceUnit.Pokemon.OnAfterTurn();
+        yield return ShowStatusChanges(sourceUnit.Pokemon);
+        yield return sourceUnit.Hud.UpdateHP();
+
+        if (sourceUnit.Pokemon.HP <= 0)
+        {
+            yield return dialogBox.TypeDialog($"{sourceUnit.Pokemon.Base.Name} fainted");
+            sourceUnit.PlayFaintAnimation();
+
+            yield return new WaitForSeconds(2f);
+
+
+            CheckForBattleOver(sourceUnit);
         }
     }
 

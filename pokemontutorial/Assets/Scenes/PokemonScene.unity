@@ -870,7 +870,7 @@ MonoBehaviour:
   - _base: {fileID: 11400000, guid: 16a18d1201919a140bacbec74832b808, type: 2}
     level: 12
   - _base: {fileID: 11400000, guid: 17e08981d998b6a4587f5ed4d1f991cd, type: 2}
-    level: 10
+    level: 11
   - _base: {fileID: 11400000, guid: fbcdb350f06df434890a9c3abef57e65, type: 2}
     level: 10
 --- !u!1 &270967592
