@@ -154,6 +154,8 @@ public class BattleSystem : MonoBehaviour
     {
         var effects = move.Base.Effects;
 
+
+        //stat boosting
         if (effects != null)
         {
             if (move.Base.Target == MoveTarget.Self)
@@ -164,6 +166,12 @@ public class BattleSystem : MonoBehaviour
             {
                 target.ApplyBoosts(effects.Boosts);
             }
+        }
+
+        //status condition
+        if(effects.Status != ConditionID.none)
+        {
+            target.SetStatus(effects.Status);
         }
 
         yield return ShowStatusChanges(source);
