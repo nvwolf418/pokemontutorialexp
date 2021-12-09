@@ -20,7 +20,7 @@ public class ConditionsDb
                 }
             }
         },
-         {
+        {
             ConditionID.brn,
             new Condition()
             {
@@ -32,6 +32,70 @@ public class ConditionsDb
                     pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} hurt itself due to burn!");
                 }
             }
+        },
+        {
+            ConditionID.par,
+            new Condition()
+            {
+                Name = "Paralyzed",
+                StartMessage = "has been Paralyzed",
+                OnBeforeMove  = (Pokemon pokemon) =>
+                {
+                    if(Random.Range(1,4) == 1)
+                    {
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is paralyzed and can't move!");
+                        return false;
+                    }
+                    return true;
+                }
+            }
+        },
+        {
+            ConditionID.frz,
+            new Condition()
+            {
+                Name = "Frozen",
+                StartMessage = "has been Frozen",
+                OnBeforeMove  = (Pokemon pokemon) =>
+                {
+                    if(Random.Range(1,4) == 1)
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is frozen and can't move!");
+                        return true;
+                    }
+                    return false;
+                }
+            }
+
+        },
+        {
+            ConditionID.slp,
+            new Condition()
+            {
+                Name = "Sleep",
+                StartMessage = "has fallen asleep",
+                OnStart = (Pokemon pokemon) =>
+                {
+                    //sleep for 1-3 turns
+                    pokemon.StatusTime = Random.Range(1,4);
+                    Debug.Log($"Will be asleep for {pokemon.StatusTime} moves");
+                },
+                OnBeforeMove  = (Pokemon pokemon) =>
+                {
+                    if(pokemon.StatusTime <= 0)
+                    {
+                        pokemon.CureStatus();
+                        pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} woke up!");
+                        return true;
+
+                    }
+                    pokemon.StatusTime--;
+                    pokemon.StatusChanges.Enqueue($"{pokemon.Base.Name} is sleeping!");
+                    return false;
+                }
+            }
+
         }
     };
 }
