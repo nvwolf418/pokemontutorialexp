@@ -114,7 +114,7 @@ public class ConditionsDb
             new Condition()
             {
                 Name = "Confusion",
-                StartMessage = "has fallen confused",
+                StartMessage = "has become confused",
                 OnStart = (Pokemon pokemon) =>
                 {
                     //confused for 1-4 turns

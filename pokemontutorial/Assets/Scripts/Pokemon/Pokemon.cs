@@ -42,6 +42,7 @@ public class Pokemon
 
     public void Init()
     {
+        //generate moves
         Moves = new List<Move>();
         foreach (var move in Base.LearnableMoves)
         {
@@ -61,6 +62,8 @@ public class Pokemon
 
 
         ResetStatBoosts();
+        Status = null;
+        VolatileStatus = null; 
     }
 
     void CalculateStats()

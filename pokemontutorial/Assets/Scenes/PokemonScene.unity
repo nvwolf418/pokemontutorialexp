@@ -185,8 +185,6 @@ MonoBehaviour:
   wildPokemons:
   - _base: {fileID: 11400000, guid: e2f768c9292d5a24f9a10b4f6fe223c3, type: 2}
     level: 15
-  - _base: {fileID: 11400000, guid: 1a3229f95e29aee40a66a5f09b9718e2, type: 2}
-    level: 15
 --- !u!1 &116678565
 GameObject:
   m_ObjectHideFlags: 0
