@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class Pokemon
@@ -34,7 +35,8 @@ public class Pokemon
 
     public Queue<string> StatusChanges { get; private set; } = new Queue<string>();
 
-    public bool HpChanged { get; set; } 
+    public bool HpChanged { get; set; }
+    public event Action OnStatusChanged;
 
     public void Init()
     {
@@ -68,7 +70,7 @@ public class Pokemon
         Stats.Add(Stat.SpDefense, Mathf.FloorToInt(Base.SpDefense * Level / 100f) + 5);
         Stats.Add(Stat.Speed, Mathf.FloorToInt(Base.Speed * Level / 100f) + 5);
 
-        MaxHP = Mathf.FloorToInt(Base.Attack * Level / 100f) + 10;
+        MaxHP = Mathf.FloorToInt(Base.Attack * Level / 100f) + 10 + Level;
     }
 
     void ResetStatBoosts()
@@ -155,7 +157,7 @@ public class Pokemon
     {
         float critical = 1f;
 
-        if (Random.value * 100f <= 6.25f)
+        if (UnityEngine.Random.value * 100f <= 6.25f)
             critical = 2f;
 
 
@@ -171,7 +173,7 @@ public class Pokemon
         float attack = (move.Base.Category == MoveCategory.Special) ? attacker.SpAttack : attacker.Attack;
         float defense = (move.Base.Category == MoveCategory.Special) ? SpDefense : Defense;
 
-        float modifiers = Random.Range(0.85f, 1f) * type;
+        float modifiers = UnityEngine.Random.Range(0.85f, 1f) * type;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attack / defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
@@ -191,18 +193,23 @@ public class Pokemon
 
     public void SetStatus(ConditionID conditionId)
     {
+        if (Status != null)
+            return;
+
         Status = ConditionsDb.Conditions[conditionId];
         Status?.OnStart?.Invoke(this);
         StatusChanges.Enqueue($"{Base.Name} {Status.StartMessage}");
+        OnStatusChanged?.Invoke();
     }
     public void CureStatus()
     {
+        OnStatusChanged?.Invoke();
         Status = null;
     }
 
     public Move GetRandomMove()
     {
-        int r = Random.Range(0, Moves.Count);
+        int r = UnityEngine.Random.Range(0, Moves.Count);
         return Moves[r];
     }
 
