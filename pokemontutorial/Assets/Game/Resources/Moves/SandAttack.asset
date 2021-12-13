@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ad7c70dc7d37b1449870ad81a9516b4, type: 3}
-  m_Name: Thunder Wave
+  m_Name: SandAttack
   m_EditorClassIdentifier: 
-  name: Thunder Wave
+  name: Sand Attack
   description: 
-  type: 4
+  type: 1
   power: 0
   accuaracy: 100
-  pp: 20
+  alwaysHits: 0
+  pp: 30
   category: 2
   effects:
-    boosts: []
-    status: 4
+    boosts:
+    - stat: 5
+      boost: -1
+    status: 0
+    volatileStatus: 0
   target: 0
