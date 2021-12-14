@@ -28,6 +28,7 @@ public class Pokemon
     public int HP { get; set; }
 
     public List<Move> Moves { get; private set; }
+    public Move CurrentMove { get; set; }
     public Dictionary<Stat, int> Stats { get; private set; }
     public Dictionary<Stat, int> StatBoosts { get; private set; }
     public Condition Status { get; set; }
