@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [System.Serializable]
 public class Pokemon
@@ -76,7 +77,7 @@ public class Pokemon
         Stats.Add(Stat.SpDefense, Mathf.FloorToInt(Base.SpDefense * Level / 100f) + 5);
         Stats.Add(Stat.Speed, Mathf.FloorToInt(Base.Speed * Level / 100f) + 5);
 
-        MaxHP = Mathf.FloorToInt(Base.Attack * Level / 100f) + 10 + Level;
+        MaxHP = Mathf.FloorToInt(Base.MaxHp * Level / 100f) + 10 + Level;
     }
 
     void ResetStatBoosts()
@@ -233,8 +234,10 @@ public class Pokemon
 
     public Move GetRandomMove()
     {
-        int r = UnityEngine.Random.Range(0, Moves.Count);
-        return Moves[r];
+        var movesWithPP = Moves.Where(x => x.PP > 0).ToList();
+
+        int r = UnityEngine.Random.Range(0, movesWithPP.Count);
+        return movesWithPP[r];
     }
 
     public bool OnBeforeMove()
