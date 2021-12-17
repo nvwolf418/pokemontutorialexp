@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private bool isMoving;
 
     public LayerMask solidObjectsLayer;
+    public LayerMask interactablesLayer;
     public LayerMask grassLayer;
 
     public event Action OnEncountered;
@@ -54,8 +55,34 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            Interact();
+        }
+
         animator.SetBool("isMoving", isMoving);
     }
+
+
+    public void Interact()
+    {
+        //get direction
+        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var interactPos = transform.position + facingDir;
+
+        Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
+
+        //see if object from interactable layer in front
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactablesLayer);
+
+        if (collider != null)
+        {
+            collider.GetComponent<Interactable>()?.Interact();
+        }
+    }
+
+
 
     IEnumerator Move(Vector3 targetPos)
     {
@@ -79,7 +106,7 @@ public class PlayerController : MonoBehaviour
     private bool IsWalkable(Vector3 targetPos)
     {
         //checks to see if solidobjects variable, pulled from LayerMask from interface to check if it is part of that layer
-       return Physics2D.OverlapCircle(targetPos, 0.2f, solidObjectsLayer) == null ? true : false;
+       return Physics2D.OverlapCircle(targetPos, 0.1f, solidObjectsLayer | interactablesLayer) == null ? true : false;
 
     }
 
