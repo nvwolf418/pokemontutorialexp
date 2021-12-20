@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public event Action OnEncountered;
 
-    private Animator animator;
+    private CharacterAnimator animator;
 
     private Vector2 input;
 
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponent<CharacterAnimator>();
     }
 
     public void handleUpdate()
@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
             if (input != Vector2.zero)
             {
                 //set values of animator
-                animator.SetFloat("moveX", input.x);
-                animator.SetFloat("moveY", input.y);
+                animator.MoveX = input.x;
+                animator.MoveY = input.y;
 
                 var targetPos = transform.position;
                 targetPos.x += input.x;
@@ -55,20 +55,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        animator.IsMoving = isMoving;
 
-        if(Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             Interact();
         }
 
-        animator.SetBool("isMoving", isMoving);
+
     }
 
 
     public void Interact()
     {
         //get direction
-        var facingDir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var facingDir = new Vector3(animator.MoveX, animator.MoveY);
         var interactPos = transform.position + facingDir;
 
         Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
@@ -116,7 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             if(UnityEngine.Random.Range(1, 101) <= 90)
             {
-                animator.SetBool("isMoving", false);
+                animator.IsMoving = false;
                 OnEncountered();
             }
         }
