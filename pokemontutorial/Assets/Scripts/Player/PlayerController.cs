@@ -5,16 +5,10 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed;
-    private bool isMoving;
-
-    public LayerMask solidObjectsLayer;
-    public LayerMask interactablesLayer;
-    public LayerMask grassLayer;
 
     public event Action OnEncountered;
 
-    private CharacterAnimator animator;
+    private Character character;
 
     private Vector2 input;
 
@@ -22,12 +16,12 @@ public class PlayerController : MonoBehaviour
 
     public void Awake()
     {
-        animator = GetComponent<CharacterAnimator>();
+        character = GetComponent<Character>();
     }
 
     public void handleUpdate()
     {
-        if (!isMoving)
+        if (!character.IsMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
@@ -40,42 +34,29 @@ public class PlayerController : MonoBehaviour
 
             if (input != Vector2.zero)
             {
-                //set values of animator
-                animator.MoveX = input.x;
-                animator.MoveY = input.y;
-
-                var targetPos = transform.position;
-                targetPos.x += input.x;
-                targetPos.y += input.y;
-
-                if (IsWalkable(new Vector3(targetPos.x - 0.35f, targetPos.y - 0.55f)))
-                {
-                    StartCoroutine(Move(targetPos));
-                }
+                StartCoroutine(character.Move(input, CheckForEncounters));
             }
         }
 
-        animator.IsMoving = isMoving;
+        character.HandleUpdate();
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Interact();
         }
-
-
     }
 
 
     public void Interact()
     {
         //get direction
-        var facingDir = new Vector3(animator.MoveX, animator.MoveY);
+        var facingDir = new Vector3(character.Animator.MoveX, character.Animator.MoveY);
         var interactPos = transform.position + facingDir;
 
         Debug.DrawLine(transform.position, interactPos, Color.green, 0.5f);
 
         //see if object from interactable layer in front
-        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactablesLayer);
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, GameLayers.i.InteractablesLayer);
 
         if (collider != null)
         {
@@ -84,40 +65,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    IEnumerator Move(Vector3 targetPos)
+    private void CheckForEncounters()
     {
-        isMoving = true;
-
-        while((targetPos - transform.position).sqrMagnitude > Mathf.Epsilon)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        transform.position = targetPos;
-
-        isMoving = false;
-
-        CheckForEncounters(targetPos);
-    }
-
-
-
-    private bool IsWalkable(Vector3 targetPos)
-    {
-        //checks to see if solidobjects variable, pulled from LayerMask from interface to check if it is part of that layer
-       return Physics2D.OverlapCircle(targetPos, 0.1f, solidObjectsLayer | interactablesLayer) == null ? true : false;
-
-    }
-
-    private void CheckForEncounters(Vector3 targetPos)
-    {
-        if(Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
+        if(Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.GrassLayer) != null)
         {
             if(UnityEngine.Random.Range(1, 101) <= 90)
             {
-                animator.IsMoving = false;
+                character.Animator.IsMoving = false;
                 OnEncountered();
             }
         }

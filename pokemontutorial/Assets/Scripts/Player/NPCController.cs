@@ -5,26 +5,61 @@ using UnityEngine;
 public class NPCController : MonoBehaviour, Interactable
 {
     [SerializeField] Dialog dialog;
-    
-    //walkking removed
-    /*
-    [SerializeField] List <Sprite> sprites;
+    [SerializeField] List<Vector2> movementPattern;
+    [SerializeField] float timeBetweenPattern;
 
-    SpriteAnimator spriteAnimator;
+    NPCState state;
+    float idleTimer = 0f;
+    int currentPattern = 0;
 
-    private void Start()
+    Character character;
+
+    private void Awake()
     {
-        spriteAnimator = new SpriteAnimator(sprites, GetComponent<SpriteRenderer>());
-        spriteAnimator.Start();
+        character = GetComponent<Character>();
     }
-
-    private void Update()
-    {
-        spriteAnimator.HandleUpdate();
-    }*/
 
     public void Interact()
     {
-        StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
+        if(state == NPCState.Idle)
+            StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
+        //StartCoroutine(character.Move(new Vector2(-2, 0)));
+    }
+
+    public void Update()
+    {
+        if (DialogManager.Instance.IsShowing)
+            return;
+
+
+        if(state == NPCState.Idle)
+        {
+            idleTimer += Time.deltaTime;
+            if(idleTimer > timeBetweenPattern)
+            {
+                idleTimer = 0f;
+                if(movementPattern.Count >0)
+                {
+                    StartCoroutine(Walk());
+                }    
+                
+            }
+        }
+
+
+        character.HandleUpdate();
+    }
+
+
+    IEnumerator Walk()
+    {
+        state = NPCState.Walking;
+
+        yield return character.Move(movementPattern[currentPattern]);
+        currentPattern = (currentPattern + 1) % movementPattern.Count;
+
+        state = NPCState.Idle;
     }
 }
+
+public enum NPCState { Idle, Walking };
