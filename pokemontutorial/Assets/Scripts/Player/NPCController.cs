@@ -22,15 +22,21 @@ public class NPCController : MonoBehaviour, Interactable
     public void Interact()
     {
         if(state == NPCState.Idle)
-            StartCoroutine(DialogManager.Instance.ShowDialog(dialog));
+        {
+            state = NPCState.Dialogue;
+            StartCoroutine(DialogManager.Instance.ShowDialog(dialog, () =>
+            {
+                idleTimer = 0f;
+                state = NPCState.Idle;
+            }));
+
+        }
+            
         //StartCoroutine(character.Move(new Vector2(-2, 0)));
     }
 
     public void Update()
     {
-        if (DialogManager.Instance.IsShowing)
-            return;
-
 
         if(state == NPCState.Idle)
         {
@@ -62,4 +68,4 @@ public class NPCController : MonoBehaviour, Interactable
     }
 }
 
-public enum NPCState { Idle, Walking };
+public enum NPCState { Idle, Walking, Dialogue };
