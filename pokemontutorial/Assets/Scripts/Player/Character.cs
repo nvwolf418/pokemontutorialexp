@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
         targetPos.x += moveVec.x;
         targetPos.y +=  moveVec.y;
 
-        if (!IsWalkable(targetPos))
+        if (!IsPathClear(targetPos))
             yield break;
 
         IsMoving = true;
@@ -47,10 +47,18 @@ public class Character : MonoBehaviour
         animator.IsMoving = IsMoving;   
     }
 
+    private bool IsPathClear(Vector3 targetPos)
+    {
+        var diff = targetPos - transform.position;
+        var dir = diff.normalized;//length of 1, but direction
+
+        return !Physics2D.BoxCast(transform.position + dir, new Vector2(0.2f, 0.2f), 0f, diff.normalized, diff.magnitude - 1, GameLayers.i.SolidLayer | GameLayers.i.InteractablesLayer | GameLayers.i.PlayerLayer);
+    }
+
     private bool IsWalkable(Vector3 targetPos)
     {
         //checks to see if solidobjects variable, pulled from LayerMask from interface to check if it is part of that layer
-        return Physics2D.OverlapCircle(targetPos, 0.1f, GameLayers.i.SolidLayer | GameLayers.i.InteractablesLayer) == null ? true : false;
+        return Physics2D.OverlapCircle(targetPos, 0.1f, GameLayers.i.SolidLayer | GameLayers.i.InteractablesLayer | GameLayers.i.PlayerLayer) == null ? true : false;
 
     }
 
