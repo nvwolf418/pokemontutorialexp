@@ -19,11 +19,12 @@ public class NPCController : MonoBehaviour, Interactable
         character = GetComponent<Character>();
     }
 
-    public void Interact()
+    public void Interact(Transform initiator)
     {
         if(state == NPCState.Idle)
         {
             state = NPCState.Dialogue;
+            character.LookTowards(initiator.position);
             StartCoroutine(DialogManager.Instance.ShowDialog(dialog, () =>
             {
                 idleTimer = 0f;
@@ -31,8 +32,7 @@ public class NPCController : MonoBehaviour, Interactable
             }));
 
         }
-            
-        //StartCoroutine(character.Move(new Vector2(-2, 0)));
+  
     }
 
     public void Update()
