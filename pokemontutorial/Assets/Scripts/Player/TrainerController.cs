@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TrainerController : MonoBehaviour
 {
+    [SerializeField] string name;
+    [SerializeField] Sprite sprite;
     [SerializeField] Dialog dialog;
     [SerializeField] GameObject exclamation;
     [SerializeField] GameObject fov;
@@ -37,7 +39,7 @@ public class TrainerController : MonoBehaviour
         //show dialog 
         StartCoroutine(DialogManager.Instance.ShowDialog(dialog, () =>
         {
-            Debug.Log("Start training battle");
+            GameController.Instance.StartTrainerBattle(this);
         }));
     }
 
@@ -64,4 +66,15 @@ public class TrainerController : MonoBehaviour
         //this eulernagles is a property used to tset the rotation of the vector
         fov.transform.eulerAngles = new Vector3(0f, 0f, angle);
     }
+
+    public string Name
+    {
+        get => name;
+    }
+
+    public Sprite Sprite
+    {
+        get => sprite;
+    } 
+        
 }

@@ -5,7 +5,8 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-
+    [SerializeField] string name;
+    [SerializeField] Sprite sprite;
     public event Action OnEncountered;
     public event Action<Collider2D> OnEnterTrainersView;
     private Character character;
@@ -91,6 +92,16 @@ public class PlayerController : MonoBehaviour
             character.Animator.IsMoving = false;
             OnEnterTrainersView?.Invoke(collider);
         }
+    }
+
+    public string Name
+    {
+        get => name;
+    }
+
+    public Sprite Sprite
+    {
+        get => sprite;
     }
 
 }
