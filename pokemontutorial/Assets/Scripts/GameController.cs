@@ -22,6 +22,15 @@ public class GameController : MonoBehaviour
         playerController.OnEncountered += StartBattle;
         battleSystem.OnBattleOver += EndBattle;
 
+        playerController.OnEnterTrainersView += (Collider2D trainerCollider) =>
+        {
+            var trainer = trainerCollider.GetComponentInParent<TrainerController>();
+            if(trainer != null)
+            {
+                StartCoroutine(trainer.TriggerTrainerBattle(playerController));
+            }
+        };
+
         DialogManager.Instance.OnShowDialog += () =>
         {
             state = GameState.Dialog;  
