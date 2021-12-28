@@ -6,12 +6,17 @@ public class TrainerController : MonoBehaviour
 {
     [SerializeField] Dialog dialog;
     [SerializeField] GameObject exclamation;
-
+    [SerializeField] GameObject fov;
     Character character;
 
     private void Awake()
     {
         character = GetComponent<Character>();
+    }
+
+    private void Start()
+    {
+        SetFovRotation(character.Animator.DefaultDirection);
     }
 
     public IEnumerator TriggerTrainerBattle(PlayerController player)
@@ -34,5 +39,29 @@ public class TrainerController : MonoBehaviour
         {
             Debug.Log("Start training battle");
         }));
+    }
+
+    public void SetFovRotation(FacingDirection dir)
+    {
+        float angle = 0f;
+
+        switch (dir)
+        {
+            case FacingDirection.Right:
+                angle = 90f;
+                break;
+            case FacingDirection.Up:
+                angle = 180f;
+                break;
+            case FacingDirection.Left:
+                angle = 270f;
+                break;
+            default:
+                Debug.Log("something went wrong with direction for trainer!");
+                break;
+        }
+
+        //this eulernagles is a property used to tset the rotation of the vector
+        fov.transform.eulerAngles = new Vector3(0f, 0f, angle);
     }
 }

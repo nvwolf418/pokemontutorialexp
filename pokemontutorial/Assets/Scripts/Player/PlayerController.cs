@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
         var collider = Physics2D.OverlapCircle(transform.position, 0.2f, GameLayers.i.FovLayer);
         if ( collider != null)
         {
+            character.Animator.IsMoving = false;
             OnEnterTrainersView?.Invoke(collider);
         }
     }
