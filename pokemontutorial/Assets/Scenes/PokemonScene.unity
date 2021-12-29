@@ -8157,6 +8157,9 @@ MonoBehaviour:
   dialog:
     lines:
     - My Pokemon are strong! Let me show you!
+  dialogAfterBattle:
+    lines:
+    - We get it, you are strong, leave me alone!
   exclamation: {fileID: 617871320}
   fov: {fileID: 597721200}
 --- !u!114 &1456533594

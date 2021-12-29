@@ -393,7 +393,7 @@ public class BattleSystem : MonoBehaviour
                 }
                 else
                 {
-                    BattleOver(false);
+                    BattleOver(true);
                 }
             }
         }
