@@ -26,6 +26,11 @@ public class TrainerController : MonoBehaviour, Interactable
         SetFovRotation(character.Animator.DefaultDirection);
     }
 
+    private void Update()
+    {
+        character.HandleUpdate();
+    }
+
     public IEnumerator TriggerTrainerBattle(PlayerController player)
     {
         exclamation.SetActive(true);
