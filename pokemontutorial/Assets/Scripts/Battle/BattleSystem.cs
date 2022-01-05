@@ -16,6 +16,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] PartyScreen partyScreen;
     [SerializeField] Image playerImage;
     [SerializeField] Image trainerImage;
+    [SerializeField] GameObject pokeballSprite;
 
     public event Action<bool> OnBattleOver;
 
@@ -38,6 +39,8 @@ public class BattleSystem : MonoBehaviour
     {
         this.playerParty = playerParty;
         this.wildPokemon = wildPokemon;
+        player = playerParty.GetComponent<PlayerController>();
+
         StartCoroutine(SetUpBattle());
     }
 
@@ -447,6 +450,11 @@ public class BattleSystem : MonoBehaviour
         {
             HandleAboutToUse();
         }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            StartCoroutine(ThrowPokeball());
+        }
     }
 
     void HandleActionSelection()
@@ -673,5 +681,14 @@ public class BattleSystem : MonoBehaviour
         yield return dialogBox.TypeDialog($"{trainer.Name} sent out {nextPokemon.Base.Name}");
 
         state = BattleState.RunningTurn;
+    }
+
+    IEnumerator ThrowPokeball()
+    {
+        state = BattleState.Busy;
+
+        yield return dialogBox.TypeDialog($"{player.Name} used POKEBALL!");
+
+        var pokeballObj = Instantiate(pokeballSprite, playerUnit.transform.position, Quaternion.identity);
     }
 }
