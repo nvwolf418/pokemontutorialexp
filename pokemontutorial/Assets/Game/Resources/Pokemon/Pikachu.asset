@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c563cad2c350d48b25473e2fd7f6ae, type: 3}
   m_Name: Pikachu
   m_EditorClassIdentifier: 
-  name: PIkachu
+  name: Pikachu
   description: 
   frontSprite: {fileID: 21300000, guid: 66acd7d21e5aa674ba1de1ef9cc71cc1, type: 3}
   backSprite: {fileID: 21300000, guid: 8cd7e1a77c3b00349a5358cd4b112575, type: 3}
@@ -24,6 +24,7 @@ MonoBehaviour:
   spAttack: 75
   spDefense: 61
   speed: 120
+  catchRate: 255
   learnableMoves:
   - moveBase: {fileID: 11400000, guid: b2949fbeda57c9c47acbe32a9b2cde1d, type: 2}
     level: 4
