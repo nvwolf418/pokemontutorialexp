@@ -23,7 +23,7 @@ public class PokemonBase : ScriptableObject
     [SerializeField] int spAttack;
     [SerializeField] int spDefense;
     [SerializeField] int speed;
-
+    [SerializeField] int catchRate = 255;
     [SerializeField] List<LearnableMove> learnableMoves;
 
     public string Name 
@@ -91,6 +91,9 @@ public class PokemonBase : ScriptableObject
     {
         get { return learnableMoves; }
     }
+
+    //only for getters
+    public int CatchRate => catchRate;
 }
 
 //need to make this serializable as a class object must have its
