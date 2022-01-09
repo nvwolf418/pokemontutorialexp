@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using DG.Tweening;
 
 //variable to store state of battle
 public enum BattleState { Start, ActionSelection, MoveSelection, RunningTurn, Busy, PartyScreen, AboutToUse, BattleOver}
@@ -689,6 +690,21 @@ public class BattleSystem : MonoBehaviour
 
         yield return dialogBox.TypeDialog($"{player.Name} used POKEBALL!");
 
-        var pokeballObj = Instantiate(pokeballSprite, playerUnit.transform.position, Quaternion.identity);
+        var pokeballObj = Instantiate(pokeballSprite, playerUnit.transform.position - new Vector3(2f, 0f), Quaternion.identity);
+
+        var pokeball = pokeballObj.GetComponent<SpriteRenderer>();
+
+        //animations
+
+        //make poekball jump toward target position
+        yield return pokeball.transform.DOJump(enemyUnit.transform.position + new Vector3(-0.325f, 2f), 2f, 1, 1f).WaitForCompletion();
+        yield return enemyUnit.PlayCaptureAnimation();
+        yield return pokeball.transform.DOMoveY(enemyUnit.transform.position.y - 2, 0.5f).WaitForCompletion();
+
+        for( int itt = 0; itt < 3; itt++ )
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return pokeball.transform.DOPunchRotation(new Vector3(0, 0, 10), 0.8f).WaitForCompletion();
+        }
     }
 }
